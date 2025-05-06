@@ -1,4 +1,4 @@
-const chromium = require('chrome-aws-lambda');
+const puppeteer = require('puppeteer-core');
 
 exports.handler = async (event, context) => {
 
@@ -6,11 +6,8 @@ exports.handler = async (event, context) => {
     const password = JSON.parse(event.body).password;
     const school = JSON.parse(event.body).school;
 
-    const browser = await chromium.puppeteer.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath,
-        headless: chromium.headless,
+    const browser = await puppeteer.connect({
+        browserWSEndpoint: "wss://chrome.browserless.io?token=SG6HTbe2tAItQOb3b7dd51663f011f2548fccaa457",
     });
     
     const page = await browser.newPage();
